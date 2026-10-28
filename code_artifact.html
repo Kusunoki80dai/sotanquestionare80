@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【埼玉県立川越高等学校】公共交通機関の広告事業に関するアンケート調査</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+        }
+        .modal-active {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen py-6 px-3 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden my-4">
+        
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-sky-900 via-blue-900 to-indigo-900 text-white p-6 sm:p-8">
+            <div class="flex items-center space-x-2 mb-3">
+                <span class="bg-sky-500/30 text-sky-200 border border-sky-400/40 text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
+                    埼玉県立川越高等学校　総合的な探究活動アンケート
+                </span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-bold tracking-tight mb-2">
+                公共交通機関の広告事業に関するアンケート調査
+            </h1>
+            <p class="text-sky-100 text-xs sm:text-sm leading-relaxed max-w-3xl mb-4">
+                本調査は、「総合的な探究の時間」における、公共交通機関（路線バス・鉄道等）の利用促進および周辺地域経済活性化のための広告の活用に関する研究の一環としておこなっております。ご多忙の折誠に恐縮ですが、研究に関するアンケート調査へのご協力をお願い申し上げます。
+            </p>
+
+            <!-- ※ご回答に関する注意書き（強調・改行付きカードデザイン） -->
+            <div class="bg-white/10 border border-white/20 rounded-lg p-4 mb-3 backdrop-blur-sm space-y-2 text-xs sm:text-sm">
+                <div class="font-bold text-sky-200 flex items-center border-b border-sky-300/20 pb-1.5 mb-2">
+                    <svg class="w-4 h-4 mr-1.5 text-sky-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    ご回答にあたってのお願い
+                </div>
+                <ul class="space-y-1.5 text-sky-50 leading-relaxed pl-1">
+                    <li class="flex items-start">
+                        <span class="text-sky-300 mr-2">■</span>
+                        <span>企業秘密や回答が困難な項目につきましては、<strong>未記入のままで差し支えございません。</strong></span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-sky-300 mr-2">■</span>
+                        <span>より多角的な分析のため、<strong>差し支えない範囲で結構ですので、可能な限り多くの項目にご回答いただけますと大変幸いに存じます。</strong></span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- プライバシー配慮の記述 -->
+            <div class="bg-sky-950/60 border border-sky-400/30 rounded-lg p-3 text-xs text-sky-200 flex items-start space-x-2">
+                <svg class="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <div>
+                    <span class="font-bold text-white block mb-0.5">プライバシー・個人情報保護に関する方針</span>
+                    ご回答いただいたデータや貴社情報につきましては、本探究活動における分析および発表のみに使用し、第三者への提供やその他の目的での使用は一切いたしません。統計的に処理し、個別の会社名や個人が特定されない形で厳重に取り扱います。
+                </div>
+            </div>
+        </header>
+
+        <!-- メインフォーム -->
+        <form id="surveyForm" class="p-6 sm:p-8 space-y-8" onsubmit="openConfirmModal(event)">
+
+            <!-- 1. 基本情報 -->
+            <section class="space-y-4 border-b border-slate-200 pb-6">
+                <h2 class="text-base sm:text-lg font-bold text-sky-900 flex items-center">
+                    <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                    1. ご回答者様情報
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- 会社名（必須） -->
+                    <div>
+                        <label for="companyName" class="block text-xs sm:text-sm font-semibold text-slate-700 mb-1">
+                            会社名 <span class="text-red-500 font-bold">*</span>
+                        </label>
+                        <input type="text" id="companyName" required placeholder="例：〇〇鉄道株式会社 / 〇〇バス株式会社" 
+                            class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition">
+                    </div>
+
+                    <!-- 担当部署名・役職（任意） -->
+                    <div>
+                        <label for="department" class="block text-xs sm:text-sm font-semibold text-slate-700 mb-1">
+                            担当部署名・役職 <span class="text-xs text-slate-400 font-normal">（任意）</span>
+                        </label>
+                        <input type="text" id="department" placeholder="例：営業部 広告担当 / 課長" 
+                            class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition">
+                    </div>
+                </div>
+
+                <!-- 事業形態 -->
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
+                        事業形態 <span class="text-red-500 font-bold">*</span>
+                    </label>
+                    <div class="flex flex-wrap gap-4 text-sm">
+                        <label class="inline-flex items-center cursor-pointer bg-slate-50 border border-slate-200 hover:border-sky-400 px-4 py-2 rounded-lg transition">
+                            <input type="radio" name="businessType" value="鉄道" checked class="w-4 h-4 text-sky-600 focus:ring-sky-500">
+                            <span class="ml-2 font-medium text-slate-700">鉄道</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer bg-slate-50 border border-slate-200 hover:border-sky-400 px-4 py-2 rounded-lg transition">
+                            <input type="radio" name="businessType" value="バス" class="w-4 h-4 text-sky-600 focus:ring-sky-500">
+                            <span class="ml-2 font-medium text-slate-700">バス</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer bg-slate-50 border border-slate-200 hover:border-sky-400 px-4 py-2 rounded-lg transition">
+                            <input type="radio" name="businessType" value="その他" class="w-4 h-4 text-sky-600 focus:ring-sky-500">
+                            <span class="ml-2 font-medium text-slate-700">その他</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. 路線・駅ごとの広告掲示実態（動的追加機能） -->
+            <section class="space-y-4 border-b border-slate-200 pb-6">
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        2. 現在の有料広告の掲示実態
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">
+                        主な路線や駅ごとの利用者数および各種広告の掲示枠充足率（掲出率）についてご記入ください。「路線・駅を追加」ボタンで枠を増やせます。
+                    </p>
+                </div>
+
+                <!-- カードコンテナ -->
+                <div id="routeList" class="space-y-4">
+                    <!-- JavaScriptで動的生成 -->
+                </div>
+
+                <!-- 追加・クリアボタンエリア -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                    <button type="button" onclick="addRouteCard()" 
+                        class="px-4 py-2.5 bg-sky-50 hover:bg-sky-100 border border-sky-300 text-sky-800 text-xs sm:text-sm font-semibold rounded-lg shadow-sm flex items-center transition">
+                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        路線・駅を追加する
+                    </button>
+
+                    <button type="button" onclick="openResetModal()" 
+                        class="px-3.5 py-2 text-slate-500 hover:text-red-600 hover:bg-red-50 text-xs font-semibold rounded-lg border border-slate-200 transition flex items-center">
+                        <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        入力内容をリセット
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. 自由記述セクション -->
+            <section class="space-y-6 border-b border-slate-200 pb-6">
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 mb-1 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        3. あったら良いと思う広告の新形態
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-2">
+                        地域活性化や利用者増につながる新しい表現方法・アイデア・期待する技術など（例：AR連動、体験型広告、地元店舗クーポン連動など）
+                    </p>
+                    <textarea id="newAdForm" rows="3" placeholder="ご意見やアイデアをご自由にご記入ください" 
+                        class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition"></textarea>
+                </div>
+
+                <!-- 4. 各種有料広告の現在の課題や今後の希望 (選択式＋その他) -->
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 mb-1 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        4. 各種有料広告の現在の課題や今後の希望（複数選択可）
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-3">
+                        現在感じられている課題や今後改善・期待したい内容について、当てはまるものを選択してください。
+                    </p>
+
+                    <div class="space-y-2.5 text-xs sm:text-sm">
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="広告枠の空き（空き枠の増加）" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">広告枠の空き（空き枠の増加・空き枠率の上昇）</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="出稿手続きや運用の複雑さ" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">出稿手続きや運用の複雑さ・アナログな業務フロー</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="効果測定・数値化の難しさ" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">効果測定・数値化の難しさ（費用対効果の明確化）</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="掲載期間・料金体系の柔軟性の不足" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">掲載期間・料金体系の柔軟性の不足（短期間や低価格枠の不足等）</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="デジタル化・サイネージ導入のコスト" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">デジタル化・デジタルサイネージ導入に関するコストや手間</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="地域企業・小規模事業者の出稿ハードルの高さ" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">地域企業・小規模事業者の出稿ハードルの高さ</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" id="checkboxOther" value="その他" onchange="toggleOtherTextarea(this)" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 font-medium text-slate-700">その他</span>
+                        </label>
+                    </div>
+
+                    <!-- その他を選択した際の自由記述欄 -->
+                    <div id="otherChallengesWrapper" class="hidden mt-3 pl-2 sm:pl-4">
+                        <textarea id="otherChallengesText" rows="2" placeholder="「その他」の詳細をご記入ください" 
+                            class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. その他ご意見・ご要望 -->
+            <section class="space-y-4 border-b border-slate-200 pb-6">
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 mb-1 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        5. その他ご意見・ご要望
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-2">
+                        本調査や私たちの探究活動に関するご意見・ご要望、その他メッセージがございましたらご自由にご記入ください。（任意）
+                    </p>
+                    <textarea id="generalOpinions" rows="3" placeholder="ご意見やご要望がございましたらご記入ください" 
+                        class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition"></textarea>
+                </div>
+
+                <!-- 連絡先表示エリア -->
+                <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-xs text-slate-600 space-y-1">
+                    <div class="font-bold text-slate-800 text-sm mb-1">【担当者・お問い合わせ先】</div>
+                    <div>埼玉県立川越高等学校 2年　正木 奏多（まさき かなた） / 山口 慶大（やまぐち けいた）</div>
+                    <div>メールアドレス：<a href="mailto:masaki.kanata.wv@st.spec.ed.jp" class="text-sky-700 underline">masaki.kanata.wv@st.spec.ed.jp</a></div>
+                    <div>担当者電話番号：080-9401-0204</div>
+                    <div>学校住所：〒350-0053 埼玉県川越市郭町2-6</div>
+                </div>
+            </section>
+
+            <!-- 送信エリア -->
+            <div class="text-center pt-2">
+                <button type="submit" 
+                    class="w-full sm:w-auto px-10 py-3.5 bg-sky-800 hover:bg-sky-900 text-white font-bold rounded-lg shadow-md transition duration-200 text-sm sm:text-base">
+                    入力内容を確認する
+                </button>
+                <p class="text-xs text-slate-400 mt-2">※クリックすると送信前確認画面が表示されます。</p>
+            </div>
+        </form>
+
+        <!-- 送信完了画面 (初期隠し) -->
+        <div id="thankYouMessage" class="hidden p-8 sm:p-12 text-center space-y-5">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800">アンケート送信が完了いたしました</h2>
+            <p class="text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+                お忙しい中、私たちの探究活動に関するアンケート調査にご協力いただき誠にありがとうございました。<br>
+                頂戴いたしました貴重なデータ・ご意見は、大切に研究活動に活用させていただきます。
+            </p>
+            <div class="pt-4 border-t border-slate-200 text-xs text-slate-500">
+                埼玉県立川越高等学校 2年　正木 奏多 / 山口 慶大
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 確認モーダル（ご

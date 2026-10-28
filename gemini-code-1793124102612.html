@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【埼玉県立川越高等学校】公共交通機関の広告事業に関するアンケート調査</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+        }
+        .modal-active {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen py-6 px-3 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden my-4">
+        
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-sky-900 via-blue-900 to-indigo-900 text-white p-6 sm:p-8">
+            <div class="flex items-center space-x-2 mb-3">
+                <span class="bg-sky-500/30 text-sky-200 border border-sky-400/40 text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
+                    埼玉県立川越高等学校 総合的な探究活動アンケート
+                </span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-bold tracking-tight mb-3">
+                公共交通機関の広告事業に関するアンケート調査
+            </h1>
+            <p class="text-sky-100 text-xs sm:text-sm leading-relaxed max-w-3xl mb-4">
+                本調査は、「総合的な探究の時間」における、公共交通機関（路線バス・鉄道等）の利用促進および周辺地域経済活性化のための広告の活用に関する研究の一環としておこなっております。ご多忙の折誠に恐縮ですが、研究に関するアンケート調査へのご協力をお願い申し上げます。
+            </p>
+
+            <!-- ※ご回答についての注意事項（改行・視認性向上） -->
+            <div class="bg-sky-800/50 border border-sky-400/30 rounded-lg p-3 text-xs sm:text-sm text-sky-100 mb-4 space-y-1">
+                <p class="font-bold text-sky-200">※ご回答について</p>
+                <p>・企業秘密や回答が難しい項目につきましては、未記入のままで差し支えございません。</p>
+                <p>・多角的な分析のため、ご協力いただける範囲内でできる限り多くの項目にお答えいただけますと大変幸いに存じます。</p>
+            </div>
+
+            <!-- プライバシー配慮の記述 -->
+            <div class="bg-sky-950/60 border border-sky-400/30 rounded-lg p-3 text-xs text-sky-200 flex items-start space-x-2">
+                <svg class="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <div>
+                    <span class="font-bold text-white block mb-0.5">プライバシー・個人情報保護に関する方針</span>
+                    ご回答いただいたデータや貴社情報につきましては、本探究活動における分析および発表のみに使用し、第三者への提供やその他の目的での使用は一切いたしません。統計的に処理し、個別の会社名や個人が特定されない形で厳重に取り扱います。
+                </div>
+            </div>
+        </header>
+
+        <!-- メインフォーム -->
+        <form id="surveyForm" class="p-6 sm:p-8 space-y-8" onsubmit="openConfirmModal(event)">
+
+            <!-- 1. 基本情報 -->
+            <section class="space-y-4 border-b border-slate-200 pb-6">
+                <h2 class="text-base sm:text-lg font-bold text-sky-900 flex items-center">
+                    <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                    1. ご回答者様情報
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- 会社名（必須） -->
+                    <div>
+                        <label for="companyName" class="block text-xs sm:text-sm font-semibold text-slate-700 mb-1">
+                            会社名 <span class="text-red-500 font-bold">*</span>
+                        </label>
+                        <input type="text" id="companyName" required placeholder="例：〇〇鉄道株式会社 / 〇〇バス株式会社" 
+                            class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition">
+                    </div>
+
+                    <!-- 担当部署名・役職（任意） -->
+                    <div>
+                        <label for="department" class="block text-xs sm:text-sm font-semibold text-slate-700 mb-1">
+                            担当部署名・役職 <span class="text-xs text-slate-400 font-normal">（任意）</span>
+                        </label>
+                        <input type="text" id="department" placeholder="例：営業部 広告担当 / 課長" 
+                            class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition">
+                    </div>
+                </div>
+
+                <!-- 事業形態（初期状態は無選択） -->
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
+                        事業形態 <span class="text-red-500 font-bold">*</span>
+                    </label>
+                    <div class="flex flex-wrap gap-4 text-sm">
+                        <label class="inline-flex items-center cursor-pointer bg-slate-50 border border-slate-200 hover:border-sky-400 px-4 py-2 rounded-lg transition">
+                            <input type="radio" name="businessType" value="鉄道" required class="w-4 h-4 text-sky-600 focus:ring-sky-500">
+                            <span class="ml-2 font-medium text-slate-700">鉄道</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer bg-slate-50 border border-slate-200 hover:border-sky-400 px-4 py-2 rounded-lg transition">
+                            <input type="radio" name="businessType" value="バス" class="w-4 h-4 text-sky-600 focus:ring-sky-500">
+                            <span class="ml-2 font-medium text-slate-700">バス</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer bg-slate-50 border border-slate-200 hover:border-sky-400 px-4 py-2 rounded-lg transition">
+                            <input type="radio" name="businessType" value="その他" class="w-4 h-4 text-sky-600 focus:ring-sky-500">
+                            <span class="ml-2 font-medium text-slate-700">その他</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. 路線・駅ごとの広告掲示実態（動的追加機能） -->
+            <section class="space-y-4 border-b border-slate-200 pb-6">
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        2. 現在の有料広告の掲示実態
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">
+                        主な路線や駅ごとの利用者数および各種広告の掲示枠充足率（掲出率）についてご記入ください。「路線・駅を追加」ボタンで枠を増やせます。
+                    </p>
+                </div>
+
+                <!-- カードコンテナ -->
+                <div id="routeList" class="space-y-4">
+                    <!-- JavaScriptで動的生成 -->
+                </div>
+
+                <!-- 追加・クリアボタンエリア -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                    <button type="button" onclick="addRouteCard()" 
+                        class="px-4 py-2.5 bg-sky-50 hover:bg-sky-100 border border-sky-300 text-sky-800 text-xs sm:text-sm font-semibold rounded-lg shadow-sm flex items-center transition">
+                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        路線・駅を追加する
+                    </button>
+
+                    <button type="button" onclick="openResetModal()" 
+                        class="px-3.5 py-2 text-slate-500 hover:text-red-600 hover:bg-red-50 text-xs font-semibold rounded-lg border border-slate-200 transition flex items-center">
+                        <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        入力内容をリセット
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. 自由記述セクション -->
+            <section class="space-y-6 border-b border-slate-200 pb-6">
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 mb-1 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        3. あったら良いと思う広告の新形態
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-2">
+                        地域活性化や利用者増につながる新しい表現方法・アイデア・期待する技術など（例：AR連動、体験型広告、地元店舗クーポン連動など）
+                    </p>
+                    <textarea id="newAdForm" rows="3" placeholder="ご意見やアイデアをご自由にご記入ください" 
+                        class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition"></textarea>
+                </div>
+
+                <!-- 4. 各種有料広告の現在の課題や今後の希望 (選択肢変更) -->
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 mb-1 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        4. 各種有料広告の現在の課題や今後の希望（複数選択可）
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-3">
+                        現在感じられている課題や今後改善・期待したい内容について、当てはまるものを選択してください。
+                    </p>
+
+                    <div class="space-y-2.5 text-xs sm:text-sm">
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="1，広告枠の空き（空き枠の増加）" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">1，広告枠の空き（空き枠の増加）</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="2，料金体系の柔軟性の不足（低価格枠の新規増設）" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">2，料金体系の柔軟性の不足（低価格枠の新規増設）</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="3，掲載期間の柔軟性の不足（短期間/長期間枠の新規増設）" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">3，掲載期間の柔軟性の不足（短期間/長期間枠の新規増設）</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="4，効果測定・数値化の難しさ（費用対効果の明確化）" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">4，効果測定・数値化の難しさ（費用対効果の明確化）</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="5，デジタル化・デジタルサイネージ導入に関するコストや手間" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">5，デジタル化・デジタルサイネージ導入に関するコストや手間</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="6，地域企業・中小規模事業者の出稿ハードルの高さ" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">6，地域企業・中小規模事業者の出稿ハードルの高さ</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" value="7，出稿手続きや運用の難しさ" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 text-slate-700">7，出稿手続きや運用の難しさ</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer p-2.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-sky-50 transition">
+                            <input type="checkbox" name="adChallenges" id="checkboxOther" value="その他" onchange="toggleOtherTextarea(this)" class="mt-0.5 w-4 h-4 text-sky-600 rounded focus:ring-sky-500">
+                            <span class="ml-2.5 font-medium text-slate-700">その他</span>
+                        </label>
+                    </div>
+
+                    <!-- その他を選択した際の自由記述欄 -->
+                    <div id="otherChallengesWrapper" class="hidden mt-3 pl-2 sm:pl-4">
+                        <textarea id="otherChallengesText" rows="2" placeholder="「その他」の詳細をご記入ください" 
+                            class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition"></textarea>
+                    </div>
+                </div>
+
+                <!-- 5. 4の選択理由 (新規追加) -->
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 mb-1 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        5. 上記（4）を選択された理由
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-2">
+                        4で選択された課題やご希望の理由・背景について、差し支えない範囲でご記入ください。
+                    </p>
+                    <textarea id="challengeReasons" rows="3" placeholder="選択された理由や現状の課題感についてご記入ください" 
+                        class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition"></textarea>
+                </div>
+            </section>
+
+            <!-- 6. その他ご意見・ご要望 (番号変更) -->
+            <section class="space-y-4 border-b border-slate-200 pb-6">
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-sky-900 mb-1 flex items-center">
+                        <span class="w-2.5 h-5 bg-sky-700 rounded mr-2.5"></span>
+                        6. その他ご意見・ご要望
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-2">
+                        本調査や私たちの探究活動に関するご意見・ご要望、その他メッセージがございましたらご自由にご記入ください。（任意）
+                    </p>
+                    <textarea id="generalOpinions" rows="3" placeholder="ご意見やご要望がございましたらご記入ください" 
+                        class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition"></textarea>
+                </div>
+
+                <!-- 連絡先表示エリア -->
+                <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-xs text-slate-600 space-y-1">
+                    <div class="font-bold text-slate-800 text-sm mb-1">【担当者・お問い合わせ先】</div>
+                    <div>埼玉県立川越高等学校 2年 正木 奏多（まさき かなた） / 山口 慶大（やまぐち けいた）</div>
+                    <div>メールアドレス：<a href="mailto:masaki.kanata.wv@st.spec.ed.jp" class="text-sky-700 underline">masaki.kanata.wv@st.spec.ed.jp</a></div>
+                    <div>担当者電話番号：080-9401-0204</div>
+                    <div>学校住所：〒350-0053 埼玉県川越市郭町2-6</div>
+                </div>
+            </section>
+
+            <!-- 送信エリア -->
+            <div class="text-center pt-2">
+                <button type="submit" 
+                    class="w-full sm:w-auto px-10 py-3.5 bg-sky-800 hover:bg-sky-900 text-white font-bold rounded-lg shadow-md transition duration-200 text-sm sm:text-base">
+                    入力内容を確認する
+                </button>
+                <p class="text-xs text-slate-400 mt-2">※クリックすると送信前確認画面が表示されます。</p>
+            </div>
+        </form>
+
+        <!-- 送信完了画面 (初期隠し) -->
+        <div id="thankYouMessage" class="hidden p-8 sm:p-12 text-center space-y-5">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800">アンケート送信が完了いたしました</h2>
+            <p class="text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+                お忙しい中、私たちの探究活動に関するアンケート調査にご協力いただき誠にありがとうございました。<br>
+                頂戴いたしました貴重なデータ・ご意見は、大切に研究活動に活用させていただきます。
+            </p>
+            <div class="pt-4 border-t border-slate-200 text-xs text-slate-500">
+                埼玉県立川越高等学校 2年 正木 奏多 / 山口 慶大
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 確認モーダル（ご入力内容の確認） -->
+    <div id="confirmModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-xl shadow-2xl border border-slate-200 w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden my-auto relative">
+            
+            <!-- モーダルヘッダー -->
+            <div class="bg-sky-900 text-white px-6 py-4 flex justify-between items-center">
+                <h3 class="font-bold text-base sm:text-lg">ご入力内容の確認</h3>
+                <button type="button" onclick="closeConfirmModal()" 
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-sky-800 hover:bg-red-600 text-white font-bold text-xl transition-colors focus:outline-none"
+                    aria-label="閉じる">
+                    &times;
+                </button>
+            </div>
+
+            <!-- モーダル本文（プレビュー） -->
+            <div class="p-6 overflow-y-auto space-y-5 text-sm" id="modalPreviewContent">
+                <!-- JSで動的挿入 -->
+            </div>
+
+            <!-- モーダルアクション -->
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex flex-col sm:flex-row justify-end gap-3">
+                <button type="button" onclick="closeConfirmModal()" 
+                    class="w-full sm:w-auto px-5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg text-xs sm:text-sm transition">
+                    修正する
+                </button>
+                <button type="button" onclick="submitFinalForm()" 
+                    class="w-full sm:w-auto px-6 py-2 bg-sky-800 hover:bg-sky-900 text-white font-bold rounded-lg text-xs sm:text-sm shadow transition">
+                    この内容で送信する
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- リセット確認モーダル -->
+    <div id="resetConfirmModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-md p-6 space-y-4">
+            <div class="flex items-center space-x-3 text-red-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <h3 class="font-bold text-base text-slate-800">入力内容のリセット</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                入力中のデータ（路線・駅情報など）が削除されます。<br>本当にリセットしてもよろしいですか？
+            </p>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button type="button" onclick="closeResetModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold">
+                    キャンセル
+                </button>
+                <button type="button" onclick="confirmReset()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold shadow">
+                    リセットする
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- スクリプト -->
+    <script>
+        let cardCounter = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            addRouteCard();
+        });
+
+        // 路線・駅カードの動的追加
+        function addRouteCard() {
+            cardCounter++;
+            const container = document.getElementById('routeList');
+            const card = document.createElement('div');
+            card.className = "route-card bg-slate-50 border border-slate-200 rounded-lg p-4 sm:p-5 relative space-y-4 shadow-sm";
+            card.id = `card-${cardCounter}`;
+
+            card.innerHTML = `
+                <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                    <span class="text-xs font-bold text-sky-800 uppercase tracking-wider">路線・駅データ #${cardCounter}</span>
+                    <button type="button" onclick="removeRouteCard('card-${cardCounter}')" 
+                        class="text-xs text-red-500 hover:text-red-700 font-medium flex items-center">
+                        <svg class="w-3.5 h-3.5 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        削除
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">路線名・駅名</label>
+                        <input type="text" class="card-target-name w-full px-3 py-1.5 border border-slate-300 rounded text-xs sm:text-sm focus:ring-1 focus:ring-sky-500" placeholder="例：川越城線 / 川越高校駅">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">1日平均利用者数</label>
+                        <input type="text" class="card-passenger-count w-full px-3 py-1.5 border border-slate-300 rounded text-xs sm:text-sm focus:ring-1 focus:ring-sky-500" placeholder="例：約14,500人/日">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-2">各種有料広告の掲示枠充足率（掲出率）</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-xs">
+                        <div>
+                            <span class="text-slate-600 block mb-0.5">① 車内広告（中づり，ドア横等）</span>
+                            ${generateSelectHTML('ad-train')}
+                        </div>
+                        <div>
+                            <span class="text-slate-600 block mb-0.5">② 駅構内・バス停広告（ポスター，看板）</span>
+                            ${generateSelectHTML('ad-station')}
+                        </div>
+                        <div>
+                            <span class="text-slate-600 block mb-0.5">③ デジタルサイネージ広告</span>
+                            ${generateSelectHTML('ad-digital')}
+                        </div>
+                        <div>
+                            <span class="text-slate-600 block mb-0.5">④ 紙媒体広告・フライヤー</span>
+                            ${generateSelectHTML('ad-paper')}
+                        </div>
+                        <div>
+                            <span class="text-slate-600 block mb-0.5">⑤ 車体ラッピング広告</span>
+                            ${generateSelectHTML('ad-wrapping')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        }
+
+        function generateSelectHTML(className) {
+            return `
+                <select class="${className} w-full px-2 py-1.5 border border-slate-300 rounded text-xs bg-white focus:ring-1 focus:ring-sky-500">
+                    <option value="未記入/回答なし">選択してください</option>
+                    <option value="非常に高い（80%以上）">非常に高い（80%以上）</option>
+                    <option value="やや高い（60%〜80%未満）">やや高い（60%〜80%未満）</option>
+                    <option value="普通（40%〜60%未満）">普通（40%〜60%未満）</option>
+                    <option value="やや低い（20%〜40%未満）">やや低い（20%〜40%未満）</option>
+                    <option value="低い（20%未満）">低い（20%未満）</option>
+                    <option value="該当なし・未導入">該当なし・未導入</option>
+                </select>
+            `;
+        }
+
+        function removeRouteCard(cardId) {
+            const cards = document.querySelectorAll('.route-card');
+            if (cards.length <= 1) {
+                alert('少なくとも1つの路線・駅入力枠は保持してください。');
+                return;
+            }
+            const card = document.getElementById(cardId);
+            if (card) card.remove();
+        }
+
+        // リセットモーダルの制御
+        function openResetModal() {
+            document.getElementById('resetConfirmModal').classList.remove('hidden');
+            document.getElementById('resetConfirmModal').classList.add('flex');
+        }
+
+        function closeResetModal() {
+            document.getElementById('resetConfirmModal').classList.add('hidden');
+            document.getElementById('resetConfirmModal').classList.remove('flex');
+        }
+
+        function confirmReset() {
+            document.getElementById('surveyForm').reset();
+            document.getElementById('routeList').innerHTML = '';
+            cardCounter = 0;
+            addRouteCard();
+            document.getElementById('otherChallengesWrapper').classList.add('hidden');
+            closeResetModal();
+        }
+
+        // その他チェックボックス切り替え
+        function toggleOtherTextarea(checkbox) {
+            const wrapper = document.getElementById('otherChallengesWrapper');
+            if (checkbox.checked) {
+                wrapper.classList.remove('hidden');
+            } else {
+                wrapper.classList.add('hidden');
+            }
+        }
+
+        // 送信前確認モーダル
+        function openConfirmModal(event) {
+            event.preventDefault();
+
+            const companyName = document.getElementById('companyName').value;
+            const department = document.getElementById('department').value || '未記入';
+            const businessType = document.querySelector('input[name="businessType"]:checked')?.value || '未選択';
+            const newAdForm = document.getElementById('newAdForm').value || '未記入';
+            const challengeReasons = document.getElementById('challengeReasons').value || '未記入';
+            const generalOpinions = document.getElementById('generalOpinions').value || '未記入';
+
+            // 課題（選択肢）収集
+            const selectedChallenges = Array.from(document.querySelectorAll('input[name="adChallenges"]:checked')).map(cb => cb.value);
+            let challengeHTML = '';
+
+            if (selectedChallenges.length > 0) {
+                challengeHTML += '<ul class="list-disc list-inside space-y-1 text-slate-700">';
+                selectedChallenges.forEach(item => {
+                    if (item === 'その他') {
+                        const otherDetail = document.getElementById('otherChallengesText').value || '詳細未記入';
+                        challengeHTML += `<li>その他: ${escapeHtml(otherDetail)}</li>`;
+                    } else {
+                        challengeHTML += `<li>${escapeHtml(item)}</li>`;
+                    }
+                });
+                challengeHTML += '</ul>';
+            } else {
+                challengeHTML = '<p class="text-slate-500">選択なし</p>';
+            }
+
+            // 路線カード収集
+            const routeCards = document.querySelectorAll('.route-card');
+            let routeHTML = '';
+
+            routeCards.forEach((card, index) => {
+                const targetName = card.querySelector('.card-target-name').value || '未記入';
+                const passengerCount = card.querySelector('.card-passenger-count').value || '未記入';
+                const adTrain = card.querySelector('.ad-train').value;
+                const adStation = card.querySelector('.ad-station').value;
+                const adDigital = card.querySelector('.ad-digital').value;
+                const adPaper = card.querySelector('.ad-paper').value;
+                const adWrapping = card.querySelector('.ad-wrapping').value;
+
+                routeHTML += `
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200 space-y-1 my-2">
+                        <div class="font-bold text-sky-900 text-xs">【データ #${index + 1}】 ${escapeHtml(targetName)}（利用者数: ${escapeHtml(passengerCount)}）</div>
+                        <ul class="text-xs text-slate-600 grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-0.5 mt-1">
+                            <li>・車内広告: ${adTrain}</li>
+                            <li>・駅構内/バス停: ${adStation}</li>
+                            <li>・デジタル: ${adDigital}</li>
+                            <li>・紙媒体: ${adPaper}</li>
+                            <li>・ラッピング: ${adWrapping}</li>
+                        </ul>
+                    </div>
+                `;
+            });
+
+            const previewHTML = `
+                <div class="space-y-4">
+                    <div class="border-b pb-3">
+                        <span class="text-xs font-bold text-sky-800 block mb-1">基本情報</span>
+                        <div class="text-slate-700"><strong>会社名:</strong> ${escapeHtml(companyName)}</div>
+                        <div class="text-slate-700"><strong>担当部署・役職:</strong> ${escapeHtml(department)}</div>
+                        <div class="text-slate-700"><strong>事業形態:</strong> ${escapeHtml(businessType)}</div>
+                    </div>
+
+                    <div class="border-b pb-3">
+                        <span class="text-xs font-bold text-sky-800 block mb-1">路線・駅ごとの実態</span>
+                        ${routeHTML}
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <span class="font-bold text-sky-800 block mb-1">3. あったら良いと思う広告の新形態:</span>
+                            <p class="bg-slate-50 p-2.5 rounded text-slate-700 whitespace-pre-wrap border border-slate-200">${escapeHtml(newAdForm)}</p>
+                        </div>
+                        <div>
+                            <span class="font-bold text-sky-800 block mb-1">4. 現在の課題や今後の希望:</span>
+                            <div class="bg-slate-50 p-2.5 rounded text-slate-700 border border-slate-200">${challengeHTML}</div>
+                        </div>
+                        <div>
+                            <span class="font-bold text-sky-800 block mb-1">5. 上記（4）を選択された理由:</span>
+                            <p class="bg-slate-50 p-2.5 rounded text-slate-700 whitespace-pre-wrap border border-slate-200">${escapeHtml(challengeReasons)}</p>
+                        </div>
+                        <div>
+                            <span class="font-bold text-sky-800 block mb-1">6. その他ご意見・ご要望:</span>
+                            <p class="bg-slate-50 p-2.5 rounded text-slate-700 whitespace-pre-wrap border border-slate-200">${escapeHtml(generalOpinions)}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modalPreviewContent').innerHTML = previewHTML;
+            const modal = document.getElementById('confirmModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('modal-active');
+        }
+
+        function closeConfirmModal() {
+            const modal = document.getElementById('confirmModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('modal-active');
+        }
+
+        function submitFinalForm() {
+            closeConfirmModal();
+            document.getElementById('surveyForm').classList.add('hidden');
+            document.getElementById('thankYouMessage').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>"']/g, function(m) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                }[m];
+            });
+        }
+    </script>
+</body>
+</html>
